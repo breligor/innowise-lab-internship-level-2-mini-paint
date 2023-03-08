@@ -1,10 +1,55 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/sign-in">Sign In</router-link> |
+    <router-link to="/register">Register</router-link>
   </nav>
+  <div class="btnWrapper">
+    <base-button 
+      @click="handleSignOut(router)"
+      class="button is-danger is-hovered"
+      title="would you like to get out?"
+      v-if="store.isLoggedIn"
+      >
+      Get out
+    </base-button>
+  </div>
   <router-view />
 </template>
+
+<script lang="ts" setup>
+import { onMounted, onBeforeMount} from "vue";
+import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
+import { useRouter } from "vue-router";
+import { useStore } from "@/store/index";
+
+import { onAuthStateChanged } from "firebase/auth";
+
+const store = useStore();
+const router = useRouter();
+const { handleSignOut, auth } = useFirebaseApiFunc();
+
+
+onBeforeMount(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      router.replace("/sign-in");            
+    } else {
+      router.replace("/");
+    }
+  });
+});
+
+onMounted(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      store.isLoggedIn = true;
+    } else {
+      store.isLoggedIn = false;
+    }
+  });
+});
+
+</script>
 
 <style lang="scss">
 #app {
@@ -26,5 +71,11 @@ nav {
       color: #42b983;
     }
   }
+}
+.btnWrapper {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
