@@ -1,17 +1,8 @@
 <template>
-  <div>
-    <input
-      class="input"
-      @keydown.enter="updateValue"
-      @input="updateValue"
-      @blur="updateValue"
-      :type="type"
-      :value="modelValue"
-    />
-  </div>
+  <input class="input" @input="updateValue" :type="type" :value="modelValue" />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { defineProps, defineEmits } from "vue";
 
 interface Props {
@@ -23,7 +14,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits(["update:modelValue"]);
 
-const updateValue = (event) => {
-  emit("update:modelValue", event.target.value);
+const updateValue = (event: Event) => {
+  emit("update:modelValue", (event.target as HTMLInputElement).value);
 };
 </script>
