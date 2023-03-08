@@ -1,6 +1,9 @@
 <template>
   <div class="about"></div>
   <main>
+    <base-toast @closeToast="closeToast()" v-if="store.errMessage"
+      >{{ store.errMessage }}
+    </base-toast>
     <div class="box">
       <div class="block is-flex is-justify-content-center">
         <h1 class="subtitle">create your masterpiece</h1>
@@ -44,34 +47,29 @@
 
 <script lang="ts" setup>
 import BaseInput from "@/components/base/BaseInput.vue";
+import BaseToast from "@/components/base/BaseToast.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import { useStore } from "@/store/index";
 import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
+import { useNotificationHandler } from "@/composables/useNotificationHandler";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 const store = useStore();
-const { authObject} = useFirebaseApiFunc()
+const { closeToast } = useNotificationHandler();
+const { authObject } = useFirebaseApiFunc();
 
 const LogIn = () => {
- 
-console.log(router)
-
-  authObject[store.currentRoute](
-    store.email,
-    store.password,
-    store.confirm,
-  )
+  authObject[store.currentRoute](store.email, store.password, store.confirm)
     .then(() => {
       //errMessage.value = "Succesfully done!";
-      router.push("/");     
+      router.push("/");
     })
-    .catch((error) => {
+    .catch((error: Error) => {
       //errMessage.value = getError(error.code);
       console.log(error.message);
     });
 };
-
-
 </script>
 
 <style lang="scss" scoped>
