@@ -9,6 +9,7 @@ export const useStore = defineStore({
     password: "",
     confirm: "",
     router: useRouter(),
+    isLoggedIn: false,
   }),
 
   getters: {
