@@ -20,34 +20,60 @@
         </ul>
       </div>
       <div class="field">
-        <div v-for="(input, i) in store.authForm" :key="i">
-          <p class="control has-icons-left has-icons-right mb-3">
-            <base-input
-              :type="input.type"
-              :placeholder="input.placeholder"
-              v-model="store[input.model]"
-            >
-            </base-input>
-          </p>
-        </div>
-      </div>
-      <div class="field">
-        <p class="control is-flex is-justify-content-center">
-          <base-button class="is-success">Login</base-button>
-        </p>
+        <form @submit.prevent="LogIn">
+          <div v-for="(input, i) in store.authForm" :key="i">
+            <p class="control has-icons-left has-icons-right mb-3">
+              <base-input
+                :type="input.type"
+                :placeholder="input.placeholder"
+                v-model="store[input.model]"
+              >
+              </base-input>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control is-flex is-justify-content-center">
+              <base-button class="is-success">Login</base-button>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
   </main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import { useStore } from "@/store/index";
-
+import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const store = useStore();
+const { authObject} = useFirebaseApiFunc()
+
+const LogIn = () => {
+ 
+console.log(router)
+
+  authObject[store.currentRoute](
+    store.email,
+    store.password,
+    store.confirm,
+  )
+    .then(() => {
+      //errMessage.value = "Succesfully done!";
+      router.push("/");     
+    })
+    .catch((error) => {
+      //errMessage.value = getError(error.code);
+      console.log(error.message);
+    });
+};
+
 
 </script>
+
 <style lang="scss" scoped>
 main {
   display: flex;
