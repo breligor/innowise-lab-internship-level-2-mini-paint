@@ -1,6 +1,11 @@
 <template>
   <div class="about"></div>
   <main>
+    <transition name="toast">
+    <base-toast @closeToast="closeToast()" v-if="store.errMessage"
+      >{{ store.errMessage }}
+    </base-toast>
+  </transition>
     <div class="box">
       <div class="block is-flex is-justify-content-center">
         <h1 class="subtitle">create your masterpiece</h1>
@@ -26,7 +31,7 @@
               <base-input
                 :type="input.type"
                 :placeholder="input.placeholder"
-                v-model="store[input.model]"
+                v-model="store[input.model as keyof storeInteface]"
               >
               </base-input>
             </p>
@@ -44,34 +49,32 @@
 
 <script lang="ts" setup>
 import BaseInput from "@/components/base/BaseInput.vue";
+import BaseToast from "@/components/base/BaseToast.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import { useStore } from "@/store/index";
 import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
+import { useNotificationHandler } from "@/composables/useNotificationHandler";
+import { useErrorHandler } from "@/composables/useErrorHandler";
 import { useRouter } from "vue-router";
+import {authObjectInterface, errorFB, storeInteface} from "@/models/types"
 const router = useRouter();
 const store = useStore();
-const { authObject} = useFirebaseApiFunc()
+const { closeToast, autoHideToast} = useNotificationHandler();
+const { authObject } = useFirebaseApiFunc();
+const { getError } = useErrorHandler();
 
 const LogIn = () => {
- 
-console.log(router)
-
-  authObject[store.currentRoute](
-    store.email,
-    store.password,
-    store.confirm,
-  )
+  authObject[store.currentRoute as keyof authObjectInterface](store.email, store.password, store.confirm)
     .then(() => {
-      //errMessage.value = "Succesfully done!";
-      router.push("/");     
+      store.errMessage = "Succesfully done!";
+      router.push("/");
     })
-    .catch((error) => {
-      //errMessage.value = getError(error.code);
-      console.log(error.message);
+    .catch((error: errorFB) => {
+      store.errMessage = getError(error.code);
+      autoHideToast();
+      console.log(error.code);
     });
 };
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -87,4 +90,12 @@ main {
 .active {
   color: rgb(56, 212, 137);
 }
+.toast-enter-from, .toast-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+.toast-enter-active, .toast-leave-active {
+  transition: all 0.5s ease;
+}
+
 </style>

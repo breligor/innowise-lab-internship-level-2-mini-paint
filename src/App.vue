@@ -5,7 +5,7 @@
   </nav>
   <div class="btnWrapper">
     <base-button 
-      @click="handleSignOut(router)"
+      @click="handleSignOut()"
       class="button is-danger is-hovered"
       title="would you like to get out?"
       v-if="store.isLoggedIn"

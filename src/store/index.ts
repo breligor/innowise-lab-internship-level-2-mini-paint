@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
+import { inputObj } from "@/models/types";
 
 export const useStore = defineStore({
   id: "store",
@@ -10,6 +11,7 @@ export const useStore = defineStore({
     confirm: "",
     router: useRouter(),
     isLoggedIn: false,
+    errMessage: "",
   }),
 
   getters: {
@@ -17,7 +19,7 @@ export const useStore = defineStore({
       return state.router.currentRoute.path;
     },
     authForm() {
-      const arrOfInputs = [
+      const arrOfInputs: inputObj[]= [
         { model: "email", placeholder: "email", type: "email" },
         { model: "password", placeholder: "password", type: "password" },
         { model: "confirm", placeholder: "confirm password", type: "password" },

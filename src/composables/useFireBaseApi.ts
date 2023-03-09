@@ -1,6 +1,7 @@
 import { getFirestore } from "firebase/firestore";
 import "firebase/compat/firestore";
 import { initializeApp } from "firebase/app";
+import { useRouter } from "vue-router";
 import {
   getAuth,
   onAuthStateChanged,
@@ -52,7 +53,8 @@ export function useFirebaseApiFunc() {
     "/register": signUpFB,
   };
 
-  const handleSignOut = (router: object) => {
+  const handleSignOut = () => {
+    const router = useRouter();
     signOut(auth).then(() => {
       //errMessage.value = "By-By!";
       //autoHideToast(errMessage.value);
