@@ -25,3 +25,9 @@ export interface storeInteface {
 export interface errorFB {
     code: string;   
 }
+
+export interface inputObj {
+    model: string,
+    placeholder: string,
+    type: string 
+}
