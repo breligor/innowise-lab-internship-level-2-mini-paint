@@ -31,7 +31,7 @@
               <base-input
                 :type="input.type"
                 :placeholder="input.placeholder"
-                v-model="store[input.model]"
+                v-model="store[input.model as keyof storeInteface]"
               >
               </base-input>
             </p>
@@ -56,7 +56,7 @@ import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
 import { useNotificationHandler } from "@/composables/useNotificationHandler";
 import { useErrorHandler } from "@/composables/useErrorHandler";
 import { useRouter } from "vue-router";
-
+import {authObjectInterface, errorFB, storeInteface} from "@/models/types"
 const router = useRouter();
 const store = useStore();
 const { closeToast, autoHideToast} = useNotificationHandler();
@@ -64,12 +64,12 @@ const { authObject } = useFirebaseApiFunc();
 const { getError } = useErrorHandler();
 
 const LogIn = () => {
-  authObject[store.currentRoute](store.email, store.password, store.confirm)
+  authObject[store.currentRoute as keyof authObjectInterface](store.email, store.password, store.confirm)
     .then(() => {
       store.errMessage = "Succesfully done!";
       router.push("/");
     })
-    .catch((error: Error) => {
+    .catch((error: errorFB) => {
       store.errMessage = getError(error.code);
       autoHideToast();
       console.log(error.code);

@@ -1,6 +1,7 @@
+import {errorsInterface} from "@/models/types"
 export function useErrorHandler() {
 
-    function getError(type:string) {
+    function getError(type:string):string {
       let defaultError;
       const errors = {
         "auth/invalid-email": "please, check your email or password",
@@ -10,8 +11,8 @@ export function useErrorHandler() {
         "auth/wrong-password": "Enter correct password",
         "wrong-confirm": "wrong password confirmation: check entered passwords ",      
       };
-      if (errors[type]) {
-        defaultError = errors[type];
+      if (errors[type as keyof errorsInterface]) {
+        defaultError = errors[type as keyof errorsInterface];
       } else {
         defaultError = errors["wrong-confirm"];
       }
