@@ -1,11 +1,18 @@
 <template>
-  <div class="home">
-  
+  <div class="home box is-flex is-justify-content-center ">
+    <canvasComponent></canvasComponent>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import canvasComponent from '@/components/canvasComponent.vue';
 
-export default defineComponent({});
+
+
+
+
 </script>
+
+<style lang="scss">
+
+</style>
