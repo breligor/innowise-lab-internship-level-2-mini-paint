@@ -8,7 +8,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/homePage.vue"),
   },
   {path: "/register", name: "Register", component: () => import("../views/registerPage.vue")},
-  {path: "/sign-in", name: "Sign In", component: () => import("../views/registerPage.vue")}
+  {path: "/sign-in", name: "Sign In", component: () => import("../views/registerPage.vue")},
+  {path: "/recent", name: "recentPictures", component: () => import("../views/recentPictures.vue")}
+
 ];
 
 const router = createRouter({
