@@ -12,7 +12,7 @@
       >
       <base-button class="button mb-2" @click="drawSmile">smile</base-button>
       <base-button class="button mb-2" @click="drawSmth">smth</base-button>
-      <base-button class="button mb-2" @click="drawStar">star</base-button>
+      <base-button class="button mb-2" @click="downloadImg">download</base-button>
     </div>
     <canvas
       ref="canvas"
@@ -28,13 +28,14 @@
 
 <script lang="ts" setup>
 import { useCanvasStore } from "@/store/canvas";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, Ref } from "vue";
+
 const canvasStore = useCanvasStore();
 
-const canvas = ref(null);
-
-onMounted(() => {
-  if (canvas?.value.getContext) {
+const canvas: Ref<HTMLCanvasElement | null> = ref(null);
+  
+  function initializeCanvas() {
+    if (canvas?.value.getContext) {
     const ctx = canvas?.value.getContext("2d") as
       | CanvasRenderingContext2D
       | null
@@ -42,9 +43,27 @@ onMounted(() => {
     canvasStore.canvas = canvas.value;
     canvasStore.context = ctx;
     canvasStore.rect = canvasStore.canvas.getBoundingClientRect();
+    canvasStore.context.fillStyle = "#FFFFFF";
+    canvasStore.context.fillRect(0, 0, canvasStore.canvas.width, canvasStore.canvas.height);
   }
+}
+
+onMounted(() => {
+  initializeCanvas() 
 });
 
+const downloadImg=(): void=> {    
+      const url = canvasStore.canvas.toDataURL();
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "img";
+      document.body.appendChild(a);
+      a.click();
+    }
+
+    const saveImgs=(): void=> {      
+      const url = canvasStore.canvas.toDataURL();     
+    }
 
 const mMove=(e: MouseEvent): void=> {
  const ctx = canvasStore.context;
