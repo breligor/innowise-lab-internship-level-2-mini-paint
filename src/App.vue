@@ -1,31 +1,18 @@
-<template>
-
-  <div class="btnWrapper">
-    <headerComp  v-if="store.isLoggedIn"> </headerComp>
-     <base-button v-if="store.isLoggedIn"
-      @click="handleSignOut()"
-      class="button is-danger is-hovered  is-rounded"
-      title="would you like to get out?"     
-      >
-      Get out
-    </base-button>
-  
-   
-  </div>
+<template>  
   <router-view />
 </template>
 
 <script lang="ts" setup>
-import headerComp from "./components/headerComp.vue";
+
 import { onMounted, onBeforeMount} from "vue";
 import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
 import { useRouter } from "vue-router";
-import { useStore } from "@/store/index";
 import { onAuthStateChanged } from "firebase/auth";
+import { useStore } from '@/store/index';
 
 const store = useStore();
 const router = useRouter();
-const { handleSignOut, auth } = useFirebaseApiFunc();
+const { auth } = useFirebaseApiFunc();
 
 
 onBeforeMount(() => {
@@ -73,11 +60,5 @@ nav {
     }
   }
 }
-.btnWrapper {
-  display: flex;  
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  width: 100%;  
-}
+
 </style>
