@@ -1,11 +1,13 @@
 <template>
-  <div class="about"></div>
+  <div class="is-flex is-justify-content-flex-end mt-2">
+    <signOutBtn></signOutBtn>
+  </div>
   <main>
     <transition name="toast">
-    <base-toast @closeToast="closeToast()" v-if="store.errMessage"
-      >{{ store.errMessage }}
-    </base-toast>
-  </transition>
+      <base-toast @closeToast="closeToast()" v-if="store.errMessage"
+        >{{ store.errMessage }}
+      </base-toast>
+    </transition>
     <div class="box">
       <div class="block is-flex is-justify-content-center">
         <h1 class="subtitle">create your masterpiece</h1>
@@ -51,22 +53,27 @@
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseToast from "@/components/base/BaseToast.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
+import signOutBtn from "@/components/signOutBtn.vue";
 import { useStore } from "@/store/index";
 import { useFirebaseApiFunc } from "@/composables/useFireBaseApi";
 import { useNotificationHandler } from "@/composables/useNotificationHandler";
 import { useErrorHandler } from "@/composables/useErrorHandler";
 import { useRouter } from "vue-router";
-import {authObjectInterface, errorFB, storeInteface} from "@/models/types"
+import { authObjectInterface, errorFB, storeInteface } from "@/models/types";
 const router = useRouter();
 const store = useStore();
-const { closeToast, autoHideToast} = useNotificationHandler();
+const { closeToast, autoHideToast } = useNotificationHandler();
 const { authObject } = useFirebaseApiFunc();
 const { getError } = useErrorHandler();
 
 const LogIn = () => {
-  authObject[store.currentRoute as keyof authObjectInterface](store.email, store.password, store.confirm)
-    .then(() => {
-      store.errMessage = "Succesfully done!";
+  authObject[store.currentRoute as keyof authObjectInterface](
+    store.email,
+    store.password,
+    store.confirm
+  )
+    .then(() => {    
+      store.password="";  
       router.push("/");
     })
     .catch((error: errorFB) => {
@@ -90,12 +97,13 @@ main {
 .active {
   color: rgb(56, 212, 137);
 }
-.toast-enter-from, .toast-leave-to {
+.toast-enter-from,
+.toast-leave-to {
   opacity: 0;
   transform: translateY(-50px);
 }
-.toast-enter-active, .toast-leave-active {
+.toast-enter-active,
+.toast-leave-active {
   transition: all 0.5s ease;
 }
-
 </style>

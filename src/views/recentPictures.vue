@@ -1,6 +1,6 @@
 <template>
-  <div class="header">
-    <headerComp></headerComp>
+  <div>
+    <headerComp> </headerComp>
   </div>
 </template>
 
@@ -8,6 +8,4 @@
 import headerComp from "@/components/headerComp.vue";
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
