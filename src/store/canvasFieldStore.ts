@@ -9,6 +9,8 @@ export const useCanvasFieldStore = defineStore({
     size: "",
     mouseEvent: "up",
     tool: "brush",
+    x:0,
+    y:0,
   }),
 
   getters: {},

@@ -1,7 +1,7 @@
 <template>
   <canvas
     ref="canvas"
-    class="canvas box"
+    class="canvas"
     width="550"
     height="550"
     @mousedown="mouseDown"
@@ -43,7 +43,7 @@ const drawPoint = (e: MouseEvent) => {
   ctx.lineWidth = 3;
   ctx.lineCap = "round";
   ctx.moveTo(coordinates.x, coordinates.y);
-  ctx.lineTo(coordinates.x - coordinates.dx, coordinates.y - coordinates.dy);
+  ctx.lineTo(coordinates.x - coordinates.mX, coordinates.y - coordinates.mY);
   ctx.stroke();
   ctx.closePath();
 };
@@ -52,10 +52,8 @@ const getCoordinates = (e: MouseEvent): { [key: string]: number } => {
   return {
     x: e.offsetX,
     y: e.offsetY,
-    dx: e.movementX,
-    dy: e.movementY,
-    cX: e.clientX,
-    cY: e.clientY,
+    mX: e.movementX,
+    mY: e.movementY,
   };
 };
 
@@ -66,9 +64,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
-.canvas {
-  cursor: pointer;
-}
 
 </style>
