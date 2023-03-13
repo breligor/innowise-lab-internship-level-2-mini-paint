@@ -4,9 +4,10 @@ export const useCanvasStore = defineStore({
   id: "canvasStore",
 
   state: () => ({   
-canvas:document.createElement("canvas") as HTMLCanvasElement,
+canvas:null,
 context:null,
 isDrawing:false,
+mouse:"",
 x:0,
 y:0,
 startX:0,
@@ -19,10 +20,6 @@ color:"",
 tool:"brush"
   }),
 
-  getters: {
-    currentRoute(state) {
-      return;
-    },
-},
+  getters: {},
   actions: { },
 });

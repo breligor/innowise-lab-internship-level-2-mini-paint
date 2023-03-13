@@ -1,15 +1,11 @@
 <template>
   <div class="home box is-flex is-justify-content-center ">
-    <canvasComponent></canvasComponent>
+    <CanvasComponent></CanvasComponent>
   </div>
 </template>
 
 <script lang="ts" setup>
-import canvasComponent from '@/components/canvasComponent.vue';
-
-
-
-
+import CanvasComponent from '@/components/canvasComponent.vue';
 
 </script>
 
