@@ -1,13 +1,12 @@
 <template>
-  <div class="header">
-    <headerComp></headerComp>
+  <div class="home box is-flex is-justify-content-center ">
+    <CanvasComponent></CanvasComponent>
   </div>
 </template>
 
-<script setup lang="ts">
-import headerComp from "@/components/headerComp.vue";
+<script lang="ts" setup>
+import CanvasComponent from '@/components/canvasComponent.vue';
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 </style>
