@@ -6,9 +6,7 @@
 
 <script lang="ts" setup>
 import CanvasComponent from '@/components/canvasComponent.vue';
-
 </script>
 
 <style lang="scss">
-
 </style>
