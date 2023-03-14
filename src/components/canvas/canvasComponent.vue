@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-import toolsComponent from "./toolsComponent.vue";
-import canvasField from "./canvasField.vue";
+import toolsComponent from "../canvas/toolsComponent.vue";
+import canvasField from "../canvas/canvasField.vue";
 import { useCanvasFieldStore } from "@/store/canvasFieldStore";
 
 const store = useCanvasFieldStore();
@@ -24,6 +24,6 @@ canvas {
   border: 1px solid rgb(148, 141, 141);
 }
 .eraser:hover {
-  cursor: url(@/assets/brush.svg) 25 65, crosshair;
+  cursor: url(@/assets/icons/brush.svg) 25 65, crosshair;
 }
 </style>

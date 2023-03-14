@@ -66,25 +66,25 @@
     </div>
     <div class="shapes-wrapper" v-if="store.isShaped">
       <base-button class="btn-size mr-2"
-        ><img class="canvas-menu__icon" src="@/assets/circle.svg"
+        ><img class="canvas-menu__icon" src="@/assets/icons/circle.svg"
       /></base-button>
       <base-button class="btn-size mr-2"
-        ><img class="canvas-menu__icon" src="@/assets/rect.svg"
+        ><img class="canvas-menu__icon" src="@/assets/icons/rect.svg"
       /></base-button>
       <base-button class="btn-size mr-2"
-        ><img class="canvas-menu__icon" src="@/assets/line.svg"
+        ><img class="canvas-menu__icon" src="@/assets/icons/line.svg"
       /></base-button>
       <base-button class="btn-size mr-2"
-        ><img class="canvas-menu__icon" src="@/assets/triangle.svg"
+        ><img class="canvas-menu__icon" src="@/assets/icons/triangle.svg"
       /></base-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import BaseButton from "./base/BaseButton.vue";
+import BaseButton from "../base/BaseButton.vue";
 import { useCanvasFieldStore } from "@/store/canvasFieldStore";
-import baseInput from "./base/BaseInput.vue";
+import baseInput from "../base/BaseInput.vue";
 const store = useCanvasFieldStore();
 </script>
 

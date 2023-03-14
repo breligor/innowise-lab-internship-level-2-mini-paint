@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import CanvasComponent from '@/components/canvasComponent.vue';
+import CanvasComponent from '@/components/canvas/canvasComponent.vue';
 import HeaderComp from '@/components/headerComp.vue';
 </script>
 
