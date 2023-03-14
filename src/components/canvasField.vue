@@ -2,7 +2,7 @@
   <canvas
     ref="canvas"
     class="canvas"
-    width="550"
+    width="780"
     height="550"
     @mousedown="mouseDown"
     @mouseup="store.mouseUp"
@@ -39,8 +39,8 @@ const drawPoint = (e: MouseEvent) => {
   const coordinates = getCoordinates(e);
   const ctx = store.context;
   ctx.beginPath();
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = store.color;
+  ctx.lineWidth = store.brushSize;
   ctx.lineCap = "round";
   ctx.moveTo(coordinates.x, coordinates.y);
   ctx.lineTo(coordinates.x - coordinates.mX, coordinates.y - coordinates.mY);
