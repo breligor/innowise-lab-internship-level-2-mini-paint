@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="Click">
+  <button class="button" @click="clickEvent">
     <slot></slot>
   </button>
 </template>
@@ -8,9 +8,9 @@
 
 import { defineEmits } from "vue";
 
-const emit = defineEmits(["Click"]);
+const emit = defineEmits(["clickEvent"]);
 
-const Click = () => emit("Click", event);
+const clickEvent = () => emit("clickEvent", event);
 
 </script>
 

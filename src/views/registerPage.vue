@@ -31,6 +31,7 @@
           <div v-for="(input, i) in store.authForm" :key="i">
             <p class="control has-icons-left has-icons-right mb-3">
               <base-input
+              class="input"
                 :type="input.type"
                 :placeholder="input.placeholder"
                 v-model="store[input.model as keyof storeInteface]"
